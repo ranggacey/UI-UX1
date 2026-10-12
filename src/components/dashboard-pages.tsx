@@ -91,12 +91,12 @@ function statusClass(status: string) {
 /* ------------------------------- user: projects ------------------------------ */
 
 const USER_PROJECTS = [
-  { name: "Website refresh", desc: "New marketing site with the updated brand and CMS.", team: ["MC", "AT", "SK"], due: "Today", progress: 84, status: "Active" },
-  { name: "Q2 product launch", desc: "Launch plan, assets, and rollout checklist.", team: ["MC", "AT", "SK", "RB"], due: "Jun 24", progress: 62, status: "Active" },
-  { name: "Customer research", desc: "Interviews and synthesis for the new onboarding.", team: ["MC", "SK"], due: "Jul 02", progress: 38, status: "Planning" },
-  { name: "Mobile app redesign", desc: "Fresh navigation and a calmer home screen.", team: ["MC", "DP"], due: "Jul 20", progress: 12, status: "Planning" },
-  { name: "Design system v2", desc: "Tokens, components, and documentation refresh.", team: ["MC", "NR"], due: "On hold", progress: 45, status: "Paused" },
-  { name: "Brand refresh", desc: "Logo, palette, and voice guidelines.", team: ["MC", "SK", "NR"], due: "Done Jun 02", progress: 100, status: "Completed" },
+  { name: "Website refresh", desc: "New marketing site with the updated brand and CMS.", team: ["RF", "RR", "SD"], due: "Today", progress: 84, status: "Active" },
+  { name: "Q2 product launch", desc: "Launch plan, assets, and rollout checklist.", team: ["RF", "RR", "SD", "FN"], due: "Jun 24", progress: 62, status: "Active" },
+  { name: "Customer research", desc: "Interviews and synthesis for the new onboarding.", team: ["RF", "SD"], due: "Jul 02", progress: 38, status: "Planning" },
+  { name: "Mobile app redesign", desc: "Fresh navigation and a calmer home screen.", team: ["RF", "DP"], due: "Jul 20", progress: 12, status: "Planning" },
+  { name: "Design system v2", desc: "Tokens, components, and documentation refresh.", team: ["RF", "NR"], due: "On hold", progress: 45, status: "Paused" },
+  { name: "Brand refresh", desc: "Logo, palette, and voice guidelines.", team: ["RF", "SD", "NR"], due: "Done Jun 02", progress: 100, status: "Completed" },
 ];
 
 export function UserProjectsContent() {
@@ -228,7 +228,7 @@ export function UserBillingContent() {
       <div className="grid-2">
         <article className="dashboard-card plan-card">
           <div className="card-heading">
-            <div><p className="card-kicker">Current plan</p><h2 className="plan-name">Northstar Pro</h2></div>
+            <div><p className="card-kicker">Current plan</p><h2 className="plan-name">Utara Pro</h2></div>
             <span className="status-pill">Active</span>
           </div>
           <p className="plan-price">$12 <span>/ member / month, billed annually</span></p>
@@ -256,7 +256,7 @@ export function UserBillingContent() {
           </div>
           <div className="settings-row">
             <div><h3>Billing email</h3><p>Receipts and invoices go here</p></div>
-            <span className="row-value">maya@northstar.dev</span>
+            <span className="row-value">rangga@utara.dev</span>
           </div>
           <div className="settings-row">
             <div><h3>Next charge</h3><p>Renews automatically</p></div>
@@ -306,14 +306,14 @@ function Toggle({ defaultOn = true, label }: { defaultOn?: boolean; label: strin
 export function UserSettingsContent() {
   return (
     <>
-      <WelcomeRow title="Settings" subtitle="Make northstar yours." />
+      <WelcomeRow title="Settings" subtitle="Make utara yours." />
       <div className="grid-2">
         <article className="dashboard-card">
           <div className="card-heading"><div><h2>Profile</h2><p>How you appear to your team</p></div></div>
           <div className="form-grid">
             <div>
               <label className="field-label" htmlFor="set-name">Full name</label>
-              <input className="field-input" id="set-name" defaultValue="Maya Chen" />
+              <input className="field-input" id="set-name" defaultValue="Rangga Figo" />
             </div>
             <div>
               <label className="field-label" htmlFor="set-role">Role</label>
@@ -322,7 +322,7 @@ export function UserSettingsContent() {
           </div>
           <div className="field-block">
             <label className="field-label" htmlFor="set-email">Email</label>
-            <input className="field-input" id="set-email" defaultValue="maya@northstar.dev" />
+            <input className="field-input" id="set-email" defaultValue="rangga@utara.dev" />
           </div>
           <div className="card-actions"><button className="button-primary">Save changes</button></div>
         </article>
@@ -342,7 +342,7 @@ export function UserSettingsContent() {
               <Toggle label="Weekly digest" />
             </div>
             <div className="settings-row">
-              <div><h3>Product updates</h3><p>News about new northstar features</p></div>
+              <div><h3>Product updates</h3><p>News about new utara features</p></div>
               <Toggle defaultOn={false} label="Product updates" />
             </div>
           </div>
@@ -362,7 +362,7 @@ export function UserSettingsContent() {
         <article className="dashboard-card">
           <div className="card-heading"><div><h2>Session</h2><p>Signed in on this device</p></div></div>
           <div className="settings-row">
-            <div><h3>maya@northstar.dev</h3><p>MacBook Pro · Semarang, Indonesia</p></div>
+            <div><h3>rangga@utara.dev</h3><p>MacBook Pro · Semarang, Indonesia</p></div>
             <span className="status-pill">Current</span>
           </div>
           <div className="card-actions">
@@ -377,14 +377,14 @@ export function UserSettingsContent() {
 /* ------------------------------- admin: people ------------------------------- */
 
 const TEAM_MEMBERS = [
-  { name: "Maya Chen", initials: "MC", email: "maya@northstar.dev", role: "Product designer", team: "Design", projects: 4, active: "2m ago", status: "Active" },
-  { name: "Alex Tan", initials: "AT", email: "alex@northstar.dev", role: "Engineer", team: "Engineering", projects: 3, active: "5m ago", status: "Active" },
-  { name: "Sarah Kim", initials: "SK", email: "sarah@northstar.dev", role: "Researcher", team: "Research", projects: 2, active: "18m ago", status: "Active" },
-  { name: "Ravi Bose", initials: "RB", email: "ravi@northstar.dev", role: "Product manager", team: "Product", projects: 3, active: "1h ago", status: "Active" },
-  { name: "Lina Hartono", initials: "LH", email: "lina@northstar.dev", role: "Marketer", team: "Growth", projects: 2, active: "3h ago", status: "Active" },
-  { name: "Dimas Prasetyo", initials: "DP", email: "dimas@northstar.dev", role: "Engineer", team: "Engineering", projects: 2, active: "Yesterday", status: "Active" },
-  { name: "Nadia Rahma", initials: "NR", email: "nadia@northstar.dev", role: "Designer", team: "Design", projects: 1, active: "2d ago", status: "Away" },
-  { name: "Tom Becker", initials: "TB", email: "tom@northstar.dev", role: "Support lead", team: "Support", projects: 1, active: "5d ago", status: "Away" },
+  { name: "Rangga Figo", initials: "RF", email: "rangga@utara.dev", role: "Product designer", team: "Design", projects: 4, active: "2m ago", status: "Active" },
+  { name: "Rizky Ramadhan", initials: "RR", email: "rizky@utara.dev", role: "Engineer", team: "Engineering", projects: 3, active: "5m ago", status: "Active" },
+  { name: "Sinta Dewi", initials: "SD", email: "sinta@utara.dev", role: "Researcher", team: "Research", projects: 2, active: "18m ago", status: "Active" },
+  { name: "Fajar Nugroho", initials: "FN", email: "fajar@utara.dev", role: "Product manager", team: "Product", projects: 3, active: "1h ago", status: "Active" },
+  { name: "Lina Hartono", initials: "LH", email: "lina@utara.dev", role: "Marketer", team: "Growth", projects: 2, active: "3h ago", status: "Active" },
+  { name: "Dimas Prasetyo", initials: "DP", email: "dimas@utara.dev", role: "Engineer", team: "Engineering", projects: 2, active: "Yesterday", status: "Active" },
+  { name: "Nadia Rahma", initials: "NR", email: "nadia@utara.dev", role: "Designer", team: "Design", projects: 1, active: "2d ago", status: "Away" },
+  { name: "Yoga Saputra", initials: "YS", email: "yoga@utara.dev", role: "Support lead", team: "Support", projects: 1, active: "5d ago", status: "Away" },
 ];
 
 export function AdminPeopleContent() {
@@ -446,12 +446,12 @@ export function AdminPeopleContent() {
 /* ------------------------------ admin: projects ------------------------------ */
 
 const ALL_PROJECTS = [
-  { name: "Website refresh", desc: "Marketing site rebuild", owner: "Maya Chen", initials: "MC", team: ["MC", "AT", "SK", "DP", "NR"], due: "Jun 18", progress: 84, status: "On track" },
-  { name: "Q2 product launch", desc: "Launch plan and rollout", owner: "Ravi Bose", initials: "RB", team: ["RB", "MC", "AT", "SK"], due: "Jun 24", progress: 62, status: "On track" },
-  { name: "API migration", desc: "Move to the new gateway", owner: "Alex Tan", initials: "AT", team: ["AT", "DP"], due: "Jun 30", progress: 45, status: "At risk" },
-  { name: "Customer research", desc: "Onboarding interviews", owner: "Sarah Kim", initials: "SK", team: ["SK", "MC"], due: "Jul 02", progress: 38, status: "Planning" },
-  { name: "Mobile app redesign", desc: "New navigation model", owner: "Alex Tan", initials: "AT", team: ["AT", "MC", "NR"], due: "Jul 20", progress: 12, status: "Planning" },
-  { name: "Brand refresh", desc: "Logo and guidelines", owner: "Maya Chen", initials: "MC", team: ["MC", "SK", "NR"], due: "Jun 02", progress: 100, status: "Completed" },
+  { name: "Website refresh", desc: "Marketing site rebuild", owner: "Rangga Figo", initials: "RF", team: ["RF", "RR", "SD", "DP", "NR"], due: "Jun 18", progress: 84, status: "On track" },
+  { name: "Q2 product launch", desc: "Launch plan and rollout", owner: "Fajar Nugroho", initials: "FN", team: ["FN", "RF", "RR", "SD"], due: "Jun 24", progress: 62, status: "On track" },
+  { name: "API migration", desc: "Move to the new gateway", owner: "Rizky Ramadhan", initials: "RR", team: ["RR", "DP"], due: "Jun 30", progress: 45, status: "At risk" },
+  { name: "Customer research", desc: "Onboarding interviews", owner: "Sinta Dewi", initials: "SD", team: ["SD", "RF"], due: "Jul 02", progress: 38, status: "Planning" },
+  { name: "Mobile app redesign", desc: "New navigation model", owner: "Rizky Ramadhan", initials: "RR", team: ["RR", "RF", "NR"], due: "Jul 20", progress: 12, status: "Planning" },
+  { name: "Brand refresh", desc: "Logo and guidelines", owner: "Rangga Figo", initials: "RF", team: ["RF", "SD", "NR"], due: "Jun 02", progress: 100, status: "Completed" },
 ];
 
 export function AdminProjectsContent() {
@@ -556,10 +556,10 @@ export function AdminInsightsContent() {
         </div>
         <div className="list">
           {[
-            { name: "Maya Chen", initials: "MC", tasks: 18, load: "High", loadClass: "risk" },
-            { name: "Alex Tan", initials: "AT", tasks: 14, load: "Balanced", loadClass: "" },
-            { name: "Sarah Kim", initials: "SK", tasks: 11, load: "Balanced", loadClass: "" },
-            { name: "Ravi Bose", initials: "RB", tasks: 9, load: "Light", loadClass: "pending" },
+            { name: "Rangga Figo", initials: "RF", tasks: 18, load: "High", loadClass: "risk" },
+            { name: "Rizky Ramadhan", initials: "RR", tasks: 14, load: "Balanced", loadClass: "" },
+            { name: "Sinta Dewi", initials: "SD", tasks: 11, load: "Balanced", loadClass: "" },
+            { name: "Fajar Nugroho", initials: "FN", tasks: 9, load: "Light", loadClass: "pending" },
           ].map((row) => (
             <div className="list-item" key={row.name}>
               <div className="user-cell" style={{ minWidth: 170 }}><span className="avatar">{row.initials}</span>{row.name}</div>
@@ -587,11 +587,11 @@ export function AdminSettingsContent() {
           <div className="card-heading"><div><h2>Workspace</h2><p>How your workspace appears</p></div></div>
           <div className="field-block">
             <label className="field-label" htmlFor="ws-name">Workspace name</label>
-            <input className="field-input" id="ws-name" defaultValue="Northstar" />
+            <input className="field-input" id="ws-name" defaultValue="Utara" />
           </div>
           <div className="field-block">
             <label className="field-label" htmlFor="ws-url">Workspace URL</label>
-            <input className="field-input" id="ws-url" defaultValue="northstar.app/w/northstar" />
+            <input className="field-input" id="ws-url" defaultValue="utara.app/w/utara" />
           </div>
           <div className="card-actions"><button className="button-primary">Save changes</button></div>
         </article>

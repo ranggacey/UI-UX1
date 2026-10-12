@@ -15,8 +15,8 @@ interface NavItem {
 }
 
 const profile = {
-  user: { name: "Maya Chen", initials: "MC", label: "Personal workspace" },
-  admin: { name: "Jordan Lee", initials: "JL", label: "Workspace admin" },
+  user: { name: "Rangga Figo", initials: "RF", label: "Personal workspace" },
+  admin: { name: "Bagas Pratama", initials: "BP", label: "Workspace admin" },
 };
 
 function navFor(role: Role): NavItem[] {
@@ -36,7 +36,7 @@ function navFor(role: Role): NavItem[] {
 }
 
 function Brand() {
-  return <div className="brand-mark"><span className="brand-mark-dot"><span /></span><span>northstar</span></div>;
+  return <div className="brand-mark"><span className="brand-mark-dot"><span /></span><span>utara</span></div>;
 }
 
 function Sidebar({ role, page }: { role: Role; page: PageSlug }) {
@@ -112,12 +112,12 @@ function FocusList({ role }: { role: Role }) {
 }
 
 function Activity({ role }: { role: Role }) {
-  const rows = role === "admin" ? [{ initials: "AT", text: <><strong>Alex Tan</strong> joined the workspace</>, time: "12 minutes ago" }, { initials: "SK", text: <><strong>Sarah Kim</strong> completed a milestone</>, time: "48 minutes ago" }, { initials: "RB", text: <><strong>Ravi Bose</strong> moved a project to planning</>, time: "2 hours ago" }] : [{ initials: "MC", text: <>You completed <strong>Review homepage copy</strong></>, time: "12 minutes ago" }, { initials: "AT", text: <><strong>Alex Tan</strong> mentioned you in a comment</>, time: "48 minutes ago" }, { initials: "SK", text: <><strong>Sarah Kim</strong> completed a milestone</>, time: "2 hours ago" }];
+  const rows = role === "admin" ? [{ initials: "RR", text: <><strong>Rizky Ramadhan</strong> joined the workspace</>, time: "12 minutes ago" }, { initials: "SD", text: <><strong>Sinta Dewi</strong> completed a milestone</>, time: "48 minutes ago" }, { initials: "FN", text: <><strong>Fajar Nugroho</strong> moved a project to planning</>, time: "2 hours ago" }] : [{ initials: "RF", text: <>You completed <strong>Review homepage copy</strong></>, time: "12 minutes ago" }, { initials: "RR", text: <><strong>Rizky Ramadhan</strong> mentioned you in a comment</>, time: "48 minutes ago" }, { initials: "SD", text: <><strong>Sinta Dewi</strong> completed a milestone</>, time: "2 hours ago" }];
   return <article className="dashboard-card activity-card"><div className="card-heading"><div><h2>Recent activity</h2><p>Small steps, moving things forward</p></div><button className="text-button">View all</button></div><div className="activity-list">{rows.map((row) => <div className="activity-row" key={row.initials + row.time}><span className="activity-avatar">{row.initials}</span><p>{row.text}<time>{row.time}</time></p></div>)}</div></article>;
 }
 
 function MembersTable() {
-  const rows = [{ name: "Maya Chen", initials: "MC", role: "Product designer", projects: 4, progress: 91, status: "Active" }, { name: "Alex Tan", initials: "AT", role: "Engineer", projects: 3, progress: 78, status: "Active" }, { name: "Sarah Kim", initials: "SK", role: "Researcher", projects: 2, progress: 64, status: "Active" }, { name: "Ravi Bose", initials: "RB", role: "Product manager", projects: 3, progress: 52, status: "Away" }];
+  const rows = [{ name: "Rangga Figo", initials: "RF", role: "Product designer", projects: 4, progress: 91, status: "Active" }, { name: "Rizky Ramadhan", initials: "RR", role: "Engineer", projects: 3, progress: 78, status: "Active" }, { name: "Sinta Dewi", initials: "SD", role: "Researcher", projects: 2, progress: 64, status: "Active" }, { name: "Fajar Nugroho", initials: "FN", role: "Product manager", projects: 3, progress: 52, status: "Away" }];
   return <article className="dashboard-card table-card"><div className="card-heading"><div><h2>Team at a glance</h2><p>People and their current momentum</p></div><button className="select-button">This month <ChevronDown size={12} /></button></div><table className="data-table"><thead><tr><th>Member</th><th>Role</th><th>Projects</th><th>Progress</th><th>Status</th></tr></thead><tbody>{rows.map((row) => <tr key={row.name}><td><div className="user-cell"><span className="avatar">{row.initials}</span>{row.name}</div></td><td><span className="role-tag">{row.role}</span></td><td>{row.projects}</td><td><div className="tiny-bar"><span style={{ width: `${row.progress}%` }} /></div></td><td><span className={`status-pill ${row.status === "Away" ? "pending" : ""}`}>{row.status}</span></td></tr>)}</tbody></table></article>;
 }
 
@@ -126,7 +126,7 @@ export function OverviewContent({ role }: { role: Role }) {
     <>
       <div className="welcome-row">
         <div>
-          <h1>{role === "admin" ? "Good morning, Jordan" : "Good morning, Maya"}</h1>
+          <h1>{role === "admin" ? "Good morning, Bagas" : "Good morning, Rangga"}</h1>
           <p>{role === "admin" ? "Here is the pulse of your workspace today." : "Here is a clear view of what is moving today."}</p>
         </div>
         <div className="date-chip"><Calendar size={14} /> Tue, Jun 10, 2025</div>

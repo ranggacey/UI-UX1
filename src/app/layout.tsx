@@ -14,7 +14,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Northstar — Keep work moving",
+  title: "Utara — Keep work moving",
   description: "A focused workspace for teams that care about momentum.",
 };
 
