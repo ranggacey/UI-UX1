@@ -1,5 +1,9 @@
-import { DashboardShell } from "@/components/dashboard-shell";
+import { DashboardShell, OverviewContent } from "@/components/dashboard-shell";
 
 export default function UserDashboard() {
-  return <DashboardShell role="user" />;
+  return (
+    <DashboardShell role="user" page="overview">
+      <OverviewContent role="user" />
+    </DashboardShell>
+  );
 }

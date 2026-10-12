@@ -20,3 +20,6 @@ export function ChevronDown(props: IconProps) { return <svg {...base(props)}><pa
 export function More(props: IconProps) { return <svg {...base(props)}><circle cx="5" cy="12" r="1" fill="currentColor" /><circle cx="12" cy="12" r="1" fill="currentColor" /><circle cx="19" cy="12" r="1" fill="currentColor" /></svg>; }
 export function TrendingUp(props: IconProps) { return <svg {...base(props)}><path d="m4 16 5-5 4 3 7-8M15 6h5v5" /></svg>; }
 export function CreditCard(props: IconProps) { return <svg {...base(props)}><rect x="3" y="5" width="18" height="14" rx="2" /><path d="M3 10h18M7 15h3" /></svg>; }
+export function Search(props: IconProps) { return <svg {...base(props)}><circle cx="11" cy="11" r="7" /><path d="m20.5 20.5-4-4" /></svg>; }
+export function Plus(props: IconProps) { return <svg {...base(props)}><path d="M12 5v14M5 12h14" /></svg>; }
+export function Clock(props: IconProps) { return <svg {...base(props)}><circle cx="12" cy="12" r="8.5" /><path d="M12 7.5V12l3 2" /></svg>; }

@@ -1,28 +1,98 @@
 "use client";
 
 import Link from "next/link";
-import { usePathname, useRouter } from "next/navigation";
+import type { ReactNode } from "react";
 import { Bell, Calendar, Chart, ChevronDown, CreditCard, Folder, Grid, LogOut, More, Settings, TrendingUp, Users, ArrowUpRight } from "@/components/icons";
 
-type Role = "user" | "admin";
+export type Role = "user" | "admin";
+export type PageSlug = "overview" | "projects" | "progress" | "billing" | "people" | "insights" | "settings";
+
+interface NavItem {
+  label: string;
+  slug: PageSlug;
+  href: string;
+  icon: (props: { size?: number }) => ReactNode;
+}
 
 const profile = {
   user: { name: "Maya Chen", initials: "MC", label: "Personal workspace" },
   admin: { name: "Jordan Lee", initials: "JL", label: "Workspace admin" },
 };
 
+function navFor(role: Role): NavItem[] {
+  return role === "admin"
+    ? [
+        { label: "Overview", slug: "overview", href: "/dashboard/admin", icon: Grid },
+        { label: "People", slug: "people", href: "/dashboard/admin/people", icon: Users },
+        { label: "Projects", slug: "projects", href: "/dashboard/admin/projects", icon: Folder },
+        { label: "Insights", slug: "insights", href: "/dashboard/admin/insights", icon: Chart },
+      ]
+    : [
+        { label: "Overview", slug: "overview", href: "/dashboard/user", icon: Grid },
+        { label: "My projects", slug: "projects", href: "/dashboard/user/projects", icon: Folder },
+        { label: "Progress", slug: "progress", href: "/dashboard/user/progress", icon: Chart },
+        { label: "Billing", slug: "billing", href: "/dashboard/user/billing", icon: CreditCard },
+      ];
+}
+
 function Brand() {
   return <div className="brand-mark"><span className="brand-mark-dot"><span /></span><span>northstar</span></div>;
 }
 
-function Sidebar({ role }: { role: Role }) {
-  const path = usePathname();
-  const items = role === "admin" ? [{ label: "Overview", icon: Grid }, { label: "People", icon: Users }, { label: "Projects", icon: Folder }, { label: "Insights", icon: Chart }] : [{ label: "Overview", icon: Grid }, { label: "My projects", icon: Folder }, { label: "Progress", icon: Chart }, { label: "Billing", icon: CreditCard }];
-  return <aside className="sidebar"><Brand /><p className="sidebar-label">Workspace</p><nav className="side-nav">{items.map(({ label, icon: Icon }, index) => <Link key={label} className={`side-link ${index === 0 && path?.includes(`/dashboard/${role}`) ? "active" : ""}`} href={`/dashboard/${role}`}><Icon size={16} /><span>{label}</span></Link>)}</nav><p className="sidebar-label">Account</p><nav className="side-nav"><button className="side-link"><Settings size={16} /><span>Settings</span></button></nav><div className="sidebar-bottom"><div className="profile-mini"><span className={`avatar ${role === "admin" ? "admin" : ""}`}>{profile[role].initials}</span><div><p className="profile-name">{profile[role].name}</p><p className="profile-role">{profile[role].label}</p></div></div><button className="logout-link" onClick={() => location.assign("/")}><LogOut size={15} /><span>Sign out</span></button></div></aside>;
+function Sidebar({ role, page }: { role: Role; page: PageSlug }) {
+  const items = navFor(role);
+  const settingsHref = role === "admin" ? "/dashboard/admin/settings" : "/dashboard/user/settings";
+  return (
+    <aside className="sidebar">
+      <Brand />
+      <p className="sidebar-label">Workspace</p>
+      <nav className="side-nav">
+        {items.map(({ label, slug, href, icon: Icon }) => (
+          <Link key={slug} className={`side-link ${page === slug ? "active" : ""}`} href={href}>
+            <Icon size={16} />
+            <span>{label}</span>
+          </Link>
+        ))}
+      </nav>
+      <p className="sidebar-label">Account</p>
+      <nav className="side-nav">
+        <Link className={`side-link ${page === "settings" ? "active" : ""}`} href={settingsHref}>
+          <Settings size={16} />
+          <span>Settings</span>
+        </Link>
+      </nav>
+      <div className="sidebar-bottom">
+        <div className="profile-mini">
+          <span className={`avatar ${role === "admin" ? "admin" : ""}`}>{profile[role].initials}</span>
+          <div>
+            <p className="profile-name">{profile[role].name}</p>
+            <p className="profile-role">{profile[role].label}</p>
+          </div>
+        </div>
+        <button className="logout-link" onClick={() => location.assign("/")}>
+          <LogOut size={15} />
+          <span>Sign out</span>
+        </button>
+      </div>
+    </aside>
+  );
 }
 
-function Topbar({ role }: { role: Role }) {
-  return <header className="dashboard-topbar"><div className="crumbs"><span>Workspace</span><span>/</span><strong>{role === "admin" ? "Overview" : "My overview"}</strong></div><div className="top-actions"><button className="icon-button" aria-label="Notifications"><Bell size={16} /></button><div className="top-avatar"><span className={`avatar ${role === "admin" ? "admin" : ""}`}>{profile[role].initials}</span><span>{profile[role].name}</span></div></div></header>;
+function Topbar({ role, page }: { role: Role; page: PageSlug }) {
+  const items = navFor(role);
+  const current = page === "settings" ? { label: "Settings" } : items.find((item) => item.slug === page) ?? items[0];
+  return (
+    <header className="dashboard-topbar">
+      <div className="crumbs"><span>Workspace</span><span>/</span><strong>{current.label}</strong></div>
+      <div className="top-actions">
+        <button className="icon-button" aria-label="Notifications"><Bell size={16} /></button>
+        <div className="top-avatar">
+          <span className={`avatar ${role === "admin" ? "admin" : ""}`}>{profile[role].initials}</span>
+          <span>{profile[role].name}</span>
+        </div>
+      </div>
+    </header>
+  );
 }
 
 function Metrics({ role }: { role: Role }) {
@@ -51,7 +121,33 @@ function MembersTable() {
   return <article className="dashboard-card table-card"><div className="card-heading"><div><h2>Team at a glance</h2><p>People and their current momentum</p></div><button className="select-button">This month <ChevronDown size={12} /></button></div><table className="data-table"><thead><tr><th>Member</th><th>Role</th><th>Projects</th><th>Progress</th><th>Status</th></tr></thead><tbody>{rows.map((row) => <tr key={row.name}><td><div className="user-cell"><span className="avatar">{row.initials}</span>{row.name}</div></td><td><span className="role-tag">{row.role}</span></td><td>{row.projects}</td><td><div className="tiny-bar"><span style={{ width: `${row.progress}%` }} /></div></td><td><span className={`status-pill ${row.status === "Away" ? "pending" : ""}`}>{row.status}</span></td></tr>)}</tbody></table></article>;
 }
 
-export function DashboardShell({ role }: { role: Role }) {
-  const router = useRouter();
-  return <div className="dashboard-shell"><Sidebar role={role} /><div className="dashboard-main"><Topbar role={role} /><main className="dashboard-content"><div className="welcome-row"><div><h1>{role === "admin" ? "Good morning, Jordan" : "Good morning, Maya"}</h1><p>{role === "admin" ? "Here is the pulse of your workspace today." : "Here is a clear view of what is moving today."}</p></div><div className="date-chip"><Calendar size={14} /> Tue, Jun 10, 2025</div></div>{role === "admin" && <div className="admin-banner"><div><h2>Workspace is in a good rhythm.</h2><p>48 members are active across 12 projects today.</p></div><div className="banner-badge"><span className="pulse" /> All systems healthy</div></div>}<Metrics role={role} /><div className="dashboard-grid"><ProgressChart role={role} /><FocusList role={role} /></div>{role === "admin" ? <MembersTable /> : <Activity role={role} />}{role === "admin" && <Activity role={role} />}</main></div></div>;
+export function OverviewContent({ role }: { role: Role }) {
+  return (
+    <>
+      <div className="welcome-row">
+        <div>
+          <h1>{role === "admin" ? "Good morning, Jordan" : "Good morning, Maya"}</h1>
+          <p>{role === "admin" ? "Here is the pulse of your workspace today." : "Here is a clear view of what is moving today."}</p>
+        </div>
+        <div className="date-chip"><Calendar size={14} /> Tue, Jun 10, 2025</div>
+      </div>
+      {role === "admin" && <div className="admin-banner"><div><h2>Workspace is in a good rhythm.</h2><p>48 members are active across 12 projects today.</p></div><div className="banner-badge"><span className="pulse" /> All systems healthy</div></div>}
+      <Metrics role={role} />
+      <div className="dashboard-grid"><ProgressChart role={role} /><FocusList role={role} /></div>
+      {role === "admin" ? <MembersTable /> : <Activity role={role} />}
+      {role === "admin" && <Activity role={role} />}
+    </>
+  );
+}
+
+export function DashboardShell({ role, page, children }: { role: Role; page: PageSlug; children: ReactNode }) {
+  return (
+    <div className="dashboard-shell">
+      <Sidebar role={role} page={page} />
+      <div className="dashboard-main">
+        <Topbar role={role} page={page} />
+        <main className="dashboard-content">{children}</main>
+      </div>
+    </div>
+  );
 }
